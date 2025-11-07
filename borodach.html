@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бородач Сервис</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #ff6600;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ff6600;
+        }
+        
+        .phone-button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .phone-button:hover {
+            background-color: #e55a00;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1622737133809-d95047b9e673?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .hero p {
+            font-size: 16px;
+            max-width: 700px;
+            margin: 0 auto 25px;
+        }
+        
+        .services-compact {
+            background: transparent;
+            padding: 30px 0;
+            color: white;
+        }
+        
+        .services-compact h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        
+        .services-slider {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .slides-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .service-slide {
+            min-width: 100%;
+            padding: 20px 15px;
+            text-align: center;
+        }
+        
+        .service-slide h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            margin: 0 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .dot.active {
+            background-color: #ff6600;
+        }
+        
+        .about {
+            padding: 70px 0;
+            background-color: #f5f5f5;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .about-text p {
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .products {
+            padding: 70px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        
+        .product-card {
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 160px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-image i {
+            font-size: 50px;
+            color: #ff6600;
+        }
+        
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .product-info h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .product-info p {
+            margin-bottom: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .product-link {
+            display: inline-block;
+            background-color: #ff6600;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .product-link:hover {
+            background-color: #e55a00;
+        }
+        
+        .advantages {
+            padding: 70px 0;
+            background-color: #f5f5f5;
+        }
+        
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        
+        .advantage {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .advantage i {
+            font-size: 35px;
+            color: #ff6600;
+            margin-bottom: 12px;
+        }
+        
+        .advantage h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .advantage p {
+            font-size: 14px;
+        }
+        
+        .contact {
+            padding: 70px 0;
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+        }
+        
+        .contact h2 {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .contact-item i {
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #ff6600;
+        }
+        
+        .map {
+            margin-top: 25px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        footer {
+            background-color: #0d0d0d;
+            color: #aaa;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            nav ul {
+                margin-top: 12px;
+            }
+            
+            nav ul li {
+                margin: 0 8px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 26px;
+            }
+            
+            .hero p {
+                font-size: 15px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Бородач <span>Сервис</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#products">Товары</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+                <button class="phone-button">
+                    <i class="fas fa-phone"></i> Позвонить
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Бородач Сервис</h1>
+            <p>Бородач Сервис - это полноценное техническое обслуживание и первоклассный ремонт автомобиля. Высокое качество запчастей, бонусная система.</p>
+            <button class="phone-button">
+                <i class="fas fa-phone"></i> Позвонить
+            </button>
+            
+            <!-- Компактный раздел услуг -->
+            <div class="services-compact">
+                <h2></h2>
+                <div class="services-slider">
+                    <div class="slides-container">
+                        <div class="service-slide">
+                            <h3>Диагностика кодов ошибок</h3>
+                            <div class="price">500р</div>
+                        </div>
+                        <div class="service-slide">
+                            <h3>Замена масла и фильтров</h3>
+                            <div class="price">1500р</div>
+                        </div>
+                        <div class="service-slide">
+                            <h3>Ремонт тормозной системы</h3>
+                            <div class="price">от 2500р</div>
+                        </div>
+                        <div class="service-slide">
+                            <h3>Компьютерная диагностика</h3>
+                            <div class="price">1200р</div>
+                        </div>
+                    </div>
+                    <div class="slider-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Раздел "О нас" сразу после главной -->
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>МЫ ЗНАЕМ СВОЁ ДЕЛО</h2>
+                    <p>Цены на услуги значительно ниже цен обслуживания в гарантийный период при аналогичном высоком уровне сервиса;</p>
+                    <p>На ремонт авто и любые другие услуги в нашем автосервисе вы получите гарантию;</p>
+                    <p>При проведении технического обслуживания автомобиля мы выдадим вам диагностическую карту и поставим отметку в сервисной книжке;</p>
+                </div>
+                <div class="about-image">
+                    <img src="C:\Users\Public\Pictures\u.jpg" alt="Автосервис Бородач">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Товары от проверенных поставщиков</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Моторные масла</h3>
+                        <p>Высококачественные масла для любого типа двигателя</p>
+                        <a href="#" class="product-link">Подробнее</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Автозапчасти</h3>
+                        <p>Оригинальные и аналогичные запчасти для всех марок авто</p>
+                        <a href="#" class="product-link">Подробнее</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-tire"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Шины и диски</h3>
+                        <p>Летняя и зимняя резина от ведущих производителей</p>
+                        <a href="#" class="product-link">Подробнее</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-car-battery"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Аккумуляторы</h3>
+                        <p>Надежные аккумуляторы с длительным сроком службы</p>
+                        <a href="#" class="product-link">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="advantages">
+        <div class="container">
+            <h2 class="section-title">Наши преимущества</h2>
+            <div class="advantages-grid">
+                <div class="advantage">
+                    <i class="fas fa-tools"></i>
+                    <h3>Качественные запчасти</h3>
+                    <p>Используем только проверенные комплектующие</p>
+                </div>
+                <div class="advantage">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Опытные мастера</h3>
+                    <p>Специалисты с многолетним стажем работы</p>
+                </div>
+                <div class="advantage">
+                    <i class="fas fa-clock"></i>
+                    <h3>Быстрое выполнение</h3>
+                    <p>Соблюдаем оговоренные сроки ремонта</p>
+                </div>
+                <div class="advantage">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Гарантия качества</h3>
+                    <p>Предоставляем гарантию на все виды работ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Контакты</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>г. Люберцы, ул. Лермонтова, д. 3</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+7 (495) 123-45-67</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Пн-Пт: 9:00-20:00<br>Сб-Вс: 10:00-18:00</p>
+                </div>
+            </div>
+            <button class="phone-button">
+                <i class="fas fa-phone"></i> Позвонить
+            </button>
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.372789963663!2d37.61729931593066!3d55.75582698055313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a50b315e573%3A0xa886bf5a3d9b2e68!2z0JzQvtGB0LrQstCw!5e0!3m2!1sru!2sru!4v1634567890123!5m2!1sru!2sru" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Бородач Сервис. Все права защищены.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Слайдер услуг
+        document.addEventListener('DOMContentLoaded', function() {
+            const slidesContainer = document.querySelector('.slides-container');
+            const slides = document.querySelectorAll('.service-slide');
+            const dots = document.querySelectorAll('.dot');
+            let currentSlide = 0;
+            const slideCount = slides.length;
+            
+            // Функция для переключения слайдов
+            function goToSlide(index) {
+                slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+                
+                // Обновляем активную точку
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[index].classList.add('active');
+                
+                currentSlide = index;
+            }
+            
+            // Автоматическое перелистывание
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slideCount;
+                goToSlide(currentSlide);
+            }, 3500);
+            
+            // Обработчики для точек
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+            });
+            
+            // Обработка кликов по кнопкам "Позвонить"
+            document.querySelectorAll('.phone-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('Звонок на номер +7 (495) 123-45-67');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
